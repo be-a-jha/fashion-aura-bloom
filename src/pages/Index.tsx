@@ -4,6 +4,7 @@ import { Search, Upload, Play, Star, ArrowRight, Check, Menu, X, User, ShoppingB
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
+import FloatingChatbot from '@/components/FloatingChatbot';
 
 const Index = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -55,27 +56,31 @@ const Index = () => {
 
   const features = [
     {
-      title: "Skin Tone Analysis",
-      description: "AI-powered analysis to find your perfect color palette",
-      icon: "🎨",
+      title: "Virtual Wardrobe",
+      description: "Digitize your closet and get smart outfit suggestions",
+      icon: "👗",
+      image: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=300&h=200&fit=crop",
       delay: 0.2,
     },
     {
-      title: "Body Shape Analysis", 
-      description: "Personalized recommendations for your unique silhouette",
-      icon: "📐",
+      title: "Style Planner", 
+      description: "Plan your outfits for the week with AI assistance",
+      icon: "📅",
+      image: "https://images.unsplash.com/photo-1506629905607-4028cc2894c3?w=300&h=200&fit=crop",
       delay: 0.4,
     },
     {
-      title: "e-Wardrobe",
-      description: "Digital closet management with smart outfit suggestions",
-      icon: "👗",
+      title: "Color Analysis",
+      description: "Discover your perfect color palette with AI",
+      icon: "🎨",
+      image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=300&h=200&fit=crop",
       delay: 0.6,
     },
     {
-      title: "Fashion Planner",
-      description: "Plan outfits for any occasion with AI assistance",
-      icon: "📅",
+      title: "Trend Forecasting",
+      description: "Stay ahead with personalized trend predictions",
+      icon: "📈",
+      image: "https://images.unsplash.com/photo-1445205170230-053b83016050?w=300&h=200&fit=crop",
       delay: 0.8,
     }
   ];
@@ -245,50 +250,20 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Experience Personalized Fashion Section */}
-      <section className="py-20 px-4 relative" data-reveal id="experience">
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className={`text-4xl lg:text-5xl font-bold mb-6 text-gradient-primary ${visibleSections.has('experience') ? 'animate-smooth-text-reveal' : 'opacity-0'}`}>
-            Experience Personalized Fashion
-          </h2>
-          <p className={`text-xl text-gray-600 mb-16 max-w-3xl mx-auto ${visibleSections.has('experience') ? 'animate-smooth-reveal-up' : 'opacity-0'}`} style={{animationDelay: '0.3s'}}>
-            Our advanced algorithms analyze your unique features to create the perfect style recommendations.
-          </p>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <Card 
-                key={index}
-                className={`group glass-effect border border-white/20 p-8 rounded-3xl hover:glass-effect-dark transition-all duration-700 hover:scale-105 floating-shadow cursor-pointer ${visibleSections.has('experience') ? 'animate-smooth-scale-reveal' : 'opacity-0'}`}
-                style={{
-                  animationDelay: `${feature.delay}s`
-                }}
-              >
-                <div className="text-5xl mb-6 group-hover:scale-110 transition-transform duration-500 animate-float">
-                  {feature.icon}
-                </div>
-                <h3 className="text-xl font-semibold mb-4 text-gray-900 group-hover:text-gradient-primary transition-all duration-500">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600 group-hover:text-gray-800 transition-colors">
-                  {feature.description}
-                </p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Find Your Perfect Colors Section */}
-      <section className="py-20 px-4 relative" data-reveal id="colors">
+      {/* MVP Section - Find Your Perfect Colors */}
+      <section className="py-20 px-4 relative" data-reveal id="mvp">
         <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className={`text-4xl lg:text-5xl font-bold mb-6 text-gradient-primary ${visibleSections.has('mvp') ? 'animate-smooth-text-reveal' : 'opacity-0'}`}>
+              Find Your Perfect Style
+            </h2>
+            <p className={`text-xl text-gray-600 max-w-3xl mx-auto ${visibleSections.has('mvp') ? 'animate-smooth-reveal-up' : 'opacity-0'}`} style={{animationDelay: '0.3s'}}>
+              Upload your photo or select your features to get personalized style recommendations.
+            </p>
+          </div>
+
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className={`${visibleSections.has('colors') ? 'animate-smooth-reveal-left' : 'opacity-0'}`}>
-              <h2 className="text-4xl font-bold mb-6 text-gray-900">Find Your Perfect Colors</h2>
-              <p className="text-lg text-gray-600 mb-8">
-                Select your skin tone to see which colors will make you shine.
-              </p>
-              
+            <div className={`${visibleSections.has('mvp') ? 'animate-smooth-reveal-left' : 'opacity-0'}`}>
               <div className="space-y-8">
                 <div>
                   <h3 className="text-xl font-semibold mb-4 text-gray-900">Skin Tone</h3>
@@ -326,7 +301,7 @@ const Index = () => {
               </div>
             </div>
 
-            <div className={`${visibleSections.has('colors') ? 'animate-smooth-reveal-right' : 'opacity-0'}`} style={{animationDelay: '0.4s'}}>
+            <div className={`${visibleSections.has('mvp') ? 'animate-smooth-reveal-right' : 'opacity-0'}`} style={{animationDelay: '0.4s'}}>
               <Card className="glass-effect border border-white/20 p-8 rounded-3xl floating-shadow">
                 <h3 className="text-xl font-semibold mb-6 text-gray-900">Try with sample faces</h3>
                 <div className="grid grid-cols-5 gap-4 mb-8">
@@ -358,6 +333,48 @@ const Index = () => {
                 </div>
               </Card>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Experience Personalized Fashion Section */}
+      <section className="py-20 px-4 relative" data-reveal id="experience">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className={`text-4xl lg:text-5xl font-bold mb-6 text-gradient-primary ${visibleSections.has('experience') ? 'animate-smooth-text-reveal' : 'opacity-0'}`}>
+            Experience Personalized Fashion
+          </h2>
+          <p className={`text-xl text-gray-600 mb-16 max-w-3xl mx-auto ${visibleSections.has('experience') ? 'animate-smooth-reveal-up' : 'opacity-0'}`} style={{animationDelay: '0.3s'}}>
+            Our advanced algorithms analyze your unique features to create the perfect style recommendations.
+          </p>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <Card 
+                key={index}
+                className={`group glass-effect border border-white/20 p-6 rounded-3xl hover:glass-effect-dark transition-all duration-700 hover:scale-105 floating-shadow cursor-pointer overflow-hidden ${visibleSections.has('experience') ? 'animate-smooth-scale-reveal' : 'opacity-0'}`}
+                style={{
+                  animationDelay: `${feature.delay}s`
+                }}
+              >
+                <div className="relative mb-4">
+                  <img 
+                    src={feature.image} 
+                    alt={feature.title}
+                    className="w-full h-32 object-cover rounded-xl group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-xl"></div>
+                  <div className="absolute top-2 right-2 text-2xl animate-float">
+                    {feature.icon}
+                  </div>
+                </div>
+                <h3 className="text-lg font-semibold mb-3 text-gray-900 group-hover:text-gradient-primary transition-all duration-500">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600 group-hover:text-gray-800 transition-colors text-sm">
+                  {feature.description}
+                </p>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
@@ -459,6 +476,9 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      {/* Floating Chatbot */}
+      <FloatingChatbot />
     </div>
   );
 };
