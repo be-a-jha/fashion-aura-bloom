@@ -1,6 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X, Send, Bot } from 'lucide-react';
+import { Send, Bot } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
@@ -95,14 +95,6 @@ const FloatingChatbot = () => {
                 <p className="text-white/70 text-xs">Fashion AI Assistant</p>
               </div>
             </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsOpen(false)}
-              className="text-white hover:bg-white/20 rounded-full w-8 h-8 p-0"
-            >
-              <X className="w-4 h-4" />
-            </Button>
           </div>
 
           {/* Messages */}
@@ -148,13 +140,10 @@ const FloatingChatbot = () => {
         </Card>
       )}
 
-      {/* Chat Button */}
-      <Button
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 rounded-full bg-gradient-to-r from-purple-600 to-black hover:from-purple-700 hover:to-gray-900 floating-shadow transition-all duration-500 hover:scale-110 animate-gentle-pulse"
-      >
-        <MessageCircle className="w-6 h-6 text-white" />
-      </Button>
+      {/* Chat Button - Always visible */}
+      <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-black rounded-full flex items-center justify-center cursor-pointer floating-shadow transition-all duration-500 hover:scale-110 animate-gentle-pulse" onClick={() => setIsOpen(!isOpen)}>
+        <Bot className="w-8 h-8 text-white" />
+      </div>
     </div>
   );
 };

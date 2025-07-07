@@ -250,7 +250,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* MVP Section - Find Your Perfect Colors */}
+      {/* MVP Section - Find Your Perfect Colors with Skin Tone & Body Analysis */}
       <section className="py-20 px-4 relative" data-reveal id="mvp">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
@@ -262,76 +262,79 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className={`${visibleSections.has('mvp') ? 'animate-smooth-reveal-left' : 'opacity-0'}`}>
-              <div className="space-y-8">
-                <div>
-                  <h3 className="text-xl font-semibold mb-4 text-gray-900">Skin Tone</h3>
-                  <div className="flex space-x-4">
-                    {skinTones.map((tone, index) => (
-                      <div
-                        key={tone.value}
-                        className={`color-circle ${selectedSkinTone === tone.value ? 'ring-4 ring-purple-500' : ''}`}
-                        style={{ backgroundColor: tone.color }}
-                        onClick={() => setSelectedSkinTone(tone.value)}
+          <div className="space-y-16">
+            {/* Skin Tone & Body Type Analysis */}
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div className={`${visibleSections.has('mvp') ? 'animate-smooth-reveal-left' : 'opacity-0'}`}>
+                <div className="space-y-8">
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4 text-gray-900">Skin Tone</h3>
+                    <div className="flex space-x-4">
+                      {skinTones.map((tone, index) => (
+                        <div
+                          key={tone.value}
+                          className={`color-circle ${selectedSkinTone === tone.value ? 'ring-4 ring-purple-500' : ''}`}
+                          style={{ backgroundColor: tone.color }}
+                          onClick={() => setSelectedSkinTone(tone.value)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4 text-gray-900">Body Type</h3>
+                    <div className="grid grid-cols-2 gap-4">
+                      {bodyTypes.map((type) => (
+                        <div
+                          key={type.value}
+                          className={`body-type-option p-4 border-2 border-gray-200 rounded-xl text-center ${selectedBodyType === type.value ? 'selected' : ''}`}
+                          onClick={() => setSelectedBodyType(type.value)}
+                        >
+                          <span className="font-medium text-gray-900">{type.name}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-full py-3 text-lg floating-shadow transition-all duration-500 hover:scale-105">
+                    <Upload className="w-5 h-5 mr-2" />
+                    Upload Your Photo for Analysis
+                  </Button>
+                </div>
+              </div>
+
+              <div className={`${visibleSections.has('mvp') ? 'animate-smooth-reveal-right' : 'opacity-0'}`} style={{animationDelay: '0.4s'}}>
+                <Card className="glass-effect border border-white/20 p-8 rounded-3xl floating-shadow">
+                  <h3 className="text-xl font-semibold mb-6 text-gray-900">Try with sample faces</h3>
+                  <div className="grid grid-cols-5 gap-4 mb-8">
+                    {[
+                      "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
+                      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
+                      "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&h=100&fit=crop&crop=face",
+                      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=100&h=100&fit=crop&crop=face",
+                      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=100&h=100&fit=crop&crop=face"
+                    ].map((src, index) => (
+                      <img 
+                        key={index}
+                        src={src} 
+                        alt={`Sample face ${index + 1}`} 
+                        className="w-16 h-16 rounded-full object-cover cursor-pointer hover:scale-110 transition-transform duration-300 floating-shadow"
                       />
                     ))}
                   </div>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-semibold mb-4 text-gray-900">Body Type</h3>
-                  <div className="grid grid-cols-2 gap-4">
-                    {bodyTypes.map((type) => (
+                  
+                  <h4 className="text-lg font-medium mb-4 text-purple-600">Your Recommended Colors</h4>
+                  <div className="flex space-x-3">
+                    {['#A7F3D0', '#60A5FA', '#A78BFA', '#F472B6', '#FBBF24', '#34D399'].map((color, index) => (
                       <div
-                        key={type.value}
-                        className={`body-type-option p-4 border-2 border-gray-200 rounded-xl text-center ${selectedBodyType === type.value ? 'selected' : ''}`}
-                        onClick={() => setSelectedBodyType(type.value)}
-                      >
-                        <span className="font-medium text-gray-900">{type.name}</span>
-                      </div>
+                        key={index}
+                        className="w-12 h-12 rounded-full cursor-pointer hover:scale-110 transition-transform duration-300"
+                        style={{ backgroundColor: color }}
+                      />
                     ))}
                   </div>
-                </div>
-
-                <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-full py-3 text-lg floating-shadow transition-all duration-500 hover:scale-105">
-                  <Upload className="w-5 h-5 mr-2" />
-                  Upload Your Photo for Analysis
-                </Button>
+                </Card>
               </div>
-            </div>
-
-            <div className={`${visibleSections.has('mvp') ? 'animate-smooth-reveal-right' : 'opacity-0'}`} style={{animationDelay: '0.4s'}}>
-              <Card className="glass-effect border border-white/20 p-8 rounded-3xl floating-shadow">
-                <h3 className="text-xl font-semibold mb-6 text-gray-900">Try with sample faces</h3>
-                <div className="grid grid-cols-5 gap-4 mb-8">
-                  {[
-                    "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
-                    "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
-                    "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&h=100&fit=crop&crop=face",
-                    "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=100&h=100&fit=crop&crop=face",
-                    "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=100&h=100&fit=crop&crop=face"
-                  ].map((src, index) => (
-                    <img 
-                      key={index}
-                      src={src} 
-                      alt={`Sample face ${index + 1}`} 
-                      className="w-16 h-16 rounded-full object-cover cursor-pointer hover:scale-110 transition-transform duration-300 floating-shadow"
-                    />
-                  ))}
-                </div>
-                
-                <h4 className="text-lg font-medium mb-4 text-purple-600">Your Recommended Colors</h4>
-                <div className="flex space-x-3">
-                  {['#A7F3D0', '#60A5FA', '#A78BFA', '#F472B6', '#FBBF24', '#34D399'].map((color, index) => (
-                    <div
-                      key={index}
-                      className="w-12 h-12 rounded-full cursor-pointer hover:scale-110 transition-transform duration-300"
-                      style={{ backgroundColor: color }}
-                    />
-                  ))}
-                </div>
-              </Card>
             </div>
           </div>
         </div>
