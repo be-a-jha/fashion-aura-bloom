@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { Search, Upload, Play, Star, ArrowRight, Check, Menu, X } from 'lucide-react';
+import { Search, Upload, Play, Star, ArrowRight, Check, Menu, X, User, ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
@@ -8,8 +8,9 @@ import { Card } from '@/components/ui/card';
 const Index = () => {
   const [scrollY, setScrollY] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeCard, setActiveCard] = useState(null);
   const [visibleSections, setVisibleSections] = useState(new Set());
+  const [selectedSkinTone, setSelectedSkinTone] = useState('');
+  const [selectedBodyType, setSelectedBodyType] = useState('');
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -24,7 +25,7 @@ const Index = () => {
           }
         });
       },
-      { threshold: 0.1, rootMargin: '50px' }
+      { threshold: 0.1, rootMargin: '100px' }
     );
 
     // Observe all sections
@@ -37,55 +38,94 @@ const Index = () => {
     };
   }, []);
 
+  const skinTones = [
+    { color: '#FFF2D9', value: 'light' },
+    { color: '#FFE4B5', value: 'fair' },
+    { color: '#DEB887', value: 'medium' },
+    { color: '#CD853F', value: 'tan' },
+    { color: '#A0522D', value: 'deep' }
+  ];
+
+  const bodyTypes = [
+    { name: 'Hourglass', value: 'hourglass' },
+    { name: 'Pear', value: 'pear' },
+    { name: 'Rectangle', value: 'rectangle' },
+    { name: 'Apple', value: 'apple' }
+  ];
+
   const features = [
     {
       title: "Skin Tone Analysis",
       description: "AI-powered analysis to find your perfect color palette",
       icon: "🎨",
-      delay: 0.1,
-      bg: "from-purple-900/20 to-black/30"
+      delay: 0.2,
     },
     {
       title: "Body Shape Analysis", 
       description: "Personalized recommendations for your unique silhouette",
       icon: "📐",
-      delay: 0.2,
-      bg: "from-black/30 to-purple-900/20"
+      delay: 0.4,
     },
     {
       title: "e-Wardrobe",
       description: "Digital closet management with smart outfit suggestions",
       icon: "👗",
-      delay: 0.3,
-      bg: "from-gray-900/20 to-purple-800/30"
+      delay: 0.6,
     },
     {
       title: "Fashion Planner",
       description: "Plan outfits for any occasion with AI assistance",
       icon: "📅",
-      delay: 0.4,
-      bg: "from-purple-800/30 to-gray-900/20"
+      delay: 0.8,
     }
   ];
 
-  const testimonials = [
+  const pricingPlans = [
     {
-      name: "Sarah Chen",
-      role: "Fashion Influencer",
-      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
-      text: "This completely transformed how I approach styling. The AI recommendations are spot-on!"
+      name: "Basic",
+      price: "$0",
+      period: "/month",
+      badge: "Free Forever",
+      description: "Perfect for trying out personal styling",
+      features: [
+        "Basic color analysis",
+        "5 outfit recommendations daily",
+        "Limited wardrobe storage",
+        "No advanced body shape analysis"
+      ],
+      buttonText: "Get Started",
+      buttonVariant: "outline"
     },
     {
-      name: "Emma Rodriguez", 
-      role: "Style Consultant",
-      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
-      text: "The most intuitive fashion tool I've ever used. My clients love the personalized insights."
+      name: "Pro",
+      price: "1rs",
+      period: "/month",
+      badge: "Popular",
+      description: "For serious style enthusiasts",
+      features: [
+        "Advanced color analysis",
+        "Unlimited outfit recommendations",
+        "Full wardrobe storage",
+        "Body shape analysis"
+      ],
+      buttonText: "Upgrade Now",
+      buttonVariant: "default",
+      popular: true
     },
     {
-      name: "Maya Patel",
-      role: "Fashion Blogger",
-      avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&h=100&fit=crop&crop=face", 
-      text: "Finally, a platform that understands personal style on a deeper level."
+      name: "Premium",
+      price: "2rs",
+      period: "/month",
+      badge: "",
+      description: "For the ultimate fashion experience",
+      features: [
+        "All Pro features",
+        "Personal style consultant (1/month)",
+        "Priority support",
+        "Exclusive trend reports"
+      ],
+      buttonText: "Go Premium",
+      buttonVariant: "outline"
     }
   ];
 
@@ -93,47 +133,60 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-purple-50 relative overflow-hidden">
       {/* Enhanced Animated Background */}
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-br from-white/90 via-gray-50/70 to-purple-50/80"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-white/95 via-gray-50/80 to-purple-50/90"></div>
         
-        {/* Morphing shapes */}
-        <div className="morph-bg w-96 h-96 top-20 left-20 animate-morph"></div>
-        <div className="morph-bg w-80 h-80 bottom-40 right-20 animate-morph" style={{animationDelay: '2s'}}></div>
-        <div className="morph-bg w-72 h-72 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-morph" style={{animationDelay: '4s'}}></div>
+        {/* Gentle morphing shapes */}
+        <div className="morph-bg w-96 h-96 top-20 left-20 animate-gentle-morph"></div>
+        <div className="morph-bg w-80 h-80 bottom-40 right-20 animate-gentle-morph" style={{animationDelay: '3s'}}></div>
+        <div className="morph-bg w-72 h-72 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-gentle-morph" style={{animationDelay: '6s'}}></div>
         
-        {/* Drifting elements */}
-        <div className="drift-bg w-64 h-64 top-1/4 right-1/4 animate-drift"></div>
-        <div className="drift-bg w-48 h-48 bottom-1/4 left-1/4 animate-drift" style={{animationDelay: '3s'}}></div>
-        
-        {/* Black accent shapes */}
-        <div className="absolute top-40 right-40 w-32 h-32 bg-black/5 rounded-full blur-2xl animate-float"></div>
-        <div className="absolute bottom-60 left-60 w-24 h-24 bg-black/10 rounded-full blur-xl animate-float" style={{animationDelay: '1.5s'}}></div>
+        {/* Gentle drifting elements */}
+        <div className="drift-bg w-64 h-64 top-1/4 right-1/4 animate-gentle-drift"></div>
+        <div className="drift-bg w-48 h-48 bottom-1/4 left-1/4 animate-gentle-drift" style={{animationDelay: '5s'}}></div>
       </div>
 
-      {/* Enhanced Floating Navbar */}
-      <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-6xl px-4">
-        <div className={`glass-effect rounded-2xl px-6 py-3 shadow-2xl shadow-purple-500/10 animated-border transition-all duration-500 ${scrollY > 100 ? 'glass-effect-dark' : ''}`}>
-          <div className="flex items-center justify-between">
-            <div className={`text-xl font-bold transition-all duration-500 ${scrollY > 100 ? 'text-gradient-primary' : 'text-gradient-secondary'}`}>
-              Company Name
+      {/* Enhanced Navbar inspired by Cerope */}
+      <nav className="fixed top-0 left-0 right-0 z-50 px-4 py-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="navbar-glass rounded-full px-6 py-3 flex items-center justify-between">
+            {/* Logo */}
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-sm">CP</span>
+              </div>
+              <span className="text-xl font-bold text-gray-900">Cerope</span>
             </div>
             
-            <div className="hidden md:flex items-center space-x-2 glass-effect rounded-full px-4 py-2 border border-white/20">
-              <Search className="w-4 h-4 text-purple-600" />
+            {/* Center Search Bar */}
+            <div className="hidden md:flex items-center space-x-2 glass-effect rounded-full px-4 py-2 border border-white/20 flex-1 max-w-md mx-8">
+              <Search className="w-4 h-4 text-gray-500" />
               <Input 
-                placeholder="Search styles..." 
-                className="border-0 bg-transparent placeholder-purple-400 text-purple-700 focus:ring-0 w-64"
+                placeholder="Search styles, colors..." 
+                className="border-0 bg-transparent placeholder-gray-500 text-gray-700 focus:ring-0 flex-1"
               />
             </div>
 
-            <div className="hidden md:flex items-center space-x-3">
-              <Button variant="ghost" className="text-gray-800 hover:glass-effect-dark rounded-full transition-all duration-300 floating-shadow">
+            {/* Right Menu */}
+            <div className="hidden md:flex items-center space-x-6">
+              <a href="#" className="text-gray-700 hover:text-purple-600 transition-colors font-medium">Consult</a>
+              <a href="#" className="text-gray-700 hover:text-purple-600 transition-colors font-medium">Shop</a>
+              <div className="flex items-center space-x-1">
+                <User className="w-4 h-4 text-gray-500" />
+                <span className="bg-purple-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+              </div>
+              <div className="flex items-center space-x-1">
+                <ShoppingBag className="w-4 h-4 text-gray-500" />
+                <span className="bg-purple-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">2</span>
+              </div>
+              <Button variant="ghost" className="text-gray-700 hover:bg-purple-50 rounded-full">
                 Login
               </Button>
-              <Button className="bg-gradient-to-r from-black via-purple-900 to-black hover:from-purple-900 hover:via-black hover:to-purple-900 text-white rounded-full px-6 floating-shadow-dark transition-all duration-300 hover:scale-105">
+              <Button className="bg-black hover:bg-gray-800 text-white rounded-full px-6">
                 Sign Up
               </Button>
             </div>
 
+            {/* Mobile Menu */}
             <Button
               variant="ghost"
               size="sm"
@@ -146,215 +199,258 @@ const Index = () => {
         </div>
       </nav>
 
-      {/* Enhanced Hero Section */}
-      <section className="min-h-screen flex items-center justify-center relative px-4 pt-20" data-reveal id="hero">
-        <div className="absolute inset-0 bg-gradient-radial from-white/50 via-transparent to-black/10"></div>
-        
+      {/* Hero Section */}
+      <section className="min-h-screen flex items-center justify-center relative px-4 pt-24" data-reveal id="hero">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
-          <div className={`text-center lg:text-left space-y-8 ${visibleSections.has('hero') ? 'animate-reveal-left' : 'opacity-0'}`}>
-            <div className="space-y-4">
-              <h1 className="text-5xl lg:text-7xl font-bold text-gradient-primary leading-tight animate-text-reveal">
+          <div className={`text-center lg:text-left space-y-8 ${visibleSections.has('hero') ? 'animate-smooth-reveal-left' : 'opacity-0'}`}>
+            <div className="space-y-6">
+              <h1 className="text-5xl lg:text-7xl font-bold text-gradient-primary leading-tight animate-smooth-text-reveal">
                 Unlock Your Fashion Aura
               </h1>
-              <p className={`text-xl lg:text-2xl text-gray-700 max-w-2xl ${visibleSections.has('hero') ? 'animate-reveal-up' : 'opacity-0'}`} style={{animationDelay: '0.3s'}}>
+              <p className={`text-xl lg:text-2xl text-gray-700 max-w-2xl ${visibleSections.has('hero') ? 'animate-smooth-reveal-up' : 'opacity-0'}`} style={{animationDelay: '0.5s'}}>
                 Upload a photo or answer a few questions to find your perfect style palette
               </p>
             </div>
 
-            <div className={`flex flex-col sm:flex-row gap-4 justify-center lg:justify-start ${visibleSections.has('hero') ? 'animate-reveal-up' : 'opacity-0'}`} style={{animationDelay: '0.6s'}}>
+            <div className={`flex flex-col sm:flex-row gap-4 justify-center lg:justify-start ${visibleSections.has('hero') ? 'animate-smooth-reveal-up' : 'opacity-0'}`} style={{animationDelay: '1s'}}>
               <Button 
                 size="lg" 
-                className="group glass-effect border border-white/30 text-gray-800 hover:glass-effect-dark rounded-full px-8 py-4 text-lg floating-shadow transition-all duration-500 hover:scale-105 animate-pulse animated-border"
+                className="group glass-effect border border-white/30 text-gray-800 hover:glass-effect-dark rounded-full px-8 py-4 text-lg floating-shadow transition-all duration-700 hover:scale-105 animate-gentle-pulse"
               >
-                <Upload className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform duration-300" />
+                <Upload className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform duration-500" />
                 Upload Image
               </Button>
               <Button 
                 size="lg" 
-                className="group bg-gradient-to-r from-black via-purple-900 to-purple-600 hover:from-purple-900 hover:via-black hover:to-purple-700 text-white rounded-full px-8 py-4 text-lg floating-shadow-dark transition-all duration-500 hover:scale-105 animate-pulse animated-border"
-                style={{animationDelay: '1s'}}
+                className="group bg-gradient-to-r from-black via-purple-900 to-purple-600 hover:from-purple-900 hover:via-black hover:to-purple-700 text-white rounded-full px-8 py-4 text-lg floating-shadow transition-all duration-700 hover:scale-105 animate-gentle-pulse"
+                style={{animationDelay: '2s'}}
               >
                 Take Quiz
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-500" />
               </Button>
             </div>
           </div>
 
-          <div className={`relative ${visibleSections.has('hero') ? 'animate-reveal-right' : 'opacity-0'}`} style={{animationDelay: '0.4s'}}>
+          <div className={`relative ${visibleSections.has('hero') ? 'animate-smooth-reveal-right' : 'opacity-0'}`} style={{animationDelay: '0.6s'}}>
             <div className="relative">
               <img 
                 src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=600&h=800&fit=crop"
                 alt="Fashion Model"
-                className="rounded-3xl shadow-2xl mx-auto max-w-md lg:max-w-lg hover:scale-105 transition-transform duration-700 floating-shadow"
+                className="rounded-3xl shadow-2xl mx-auto max-w-md lg:max-w-lg hover:scale-105 transition-transform duration-1000 floating-shadow"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-purple-600/10 to-transparent rounded-3xl"></div>
-              <div className="absolute -inset-4 bg-gradient-to-r from-black/20 via-purple-400/30 to-black/20 rounded-3xl blur-xl -z-10 animate-pulse"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-purple-600/5 to-transparent rounded-3xl"></div>
+              <div className="absolute -inset-4 bg-gradient-to-r from-black/10 via-purple-400/20 to-black/10 rounded-3xl blur-xl -z-10 animate-subtle-glow"></div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Enhanced Features Section */}
-      <section className="py-20 px-4 relative" data-reveal id="features">
-        <div className="max-w-6xl mx-auto">
-          <h2 className={`text-4xl lg:text-5xl font-bold text-center mb-16 text-gradient-primary ${visibleSections.has('features') ? 'animate-text-reveal' : 'opacity-0'}`}>
-            Discover Your Style DNA
+      {/* Experience Personalized Fashion Section */}
+      <section className="py-20 px-4 relative" data-reveal id="experience">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className={`text-4xl lg:text-5xl font-bold mb-6 text-gradient-primary ${visibleSections.has('experience') ? 'animate-smooth-text-reveal' : 'opacity-0'}`}>
+            Experience Personalized Fashion
           </h2>
+          <p className={`text-xl text-gray-600 mb-16 max-w-3xl mx-auto ${visibleSections.has('experience') ? 'animate-smooth-reveal-up' : 'opacity-0'}`} style={{animationDelay: '0.3s'}}>
+            Our advanced algorithms analyze your unique features to create the perfect style recommendations.
+          </p>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
               <Card 
                 key={index}
-                className={`group glass-effect border border-white/20 p-6 rounded-3xl hover:glass-effect-dark transition-all duration-500 hover:scale-105 floating-shadow cursor-pointer animated-border ${visibleSections.has('features') ? 'animate-scale-reveal' : 'opacity-0'}`}
+                className={`group glass-effect border border-white/20 p-8 rounded-3xl hover:glass-effect-dark transition-all duration-700 hover:scale-105 floating-shadow cursor-pointer ${visibleSections.has('experience') ? 'animate-smooth-scale-reveal' : 'opacity-0'}`}
                 style={{
                   animationDelay: `${feature.delay}s`
                 }}
-                onMouseEnter={() => setActiveCard(index)}
-                onMouseLeave={() => setActiveCard(null)}
               >
-                <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300 animate-float">
+                <div className="text-5xl mb-6 group-hover:scale-110 transition-transform duration-500 animate-float">
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-gray-900 group-hover:text-gradient-primary transition-all duration-300">
+                <h3 className="text-xl font-semibold mb-4 text-gray-900 group-hover:text-gradient-primary transition-all duration-500">
                   {feature.title}
                 </h3>
                 <p className="text-gray-600 group-hover:text-gray-800 transition-colors">
                   {feature.description}
                 </p>
-                <div className={`absolute inset-0 bg-gradient-to-r ${feature.bg} rounded-3xl blur-xl -z-10 transition-opacity duration-300 ${activeCard === index ? 'opacity-100' : 'opacity-0'}`}></div>
               </Card>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Enhanced Try It Instantly Section */}
-      <section className="py-20 px-4 relative" data-reveal id="try-it">
-        <div className="max-w-4xl mx-auto">
-          <Card className={`glass-effect-dark border border-white/10 p-8 lg:p-12 rounded-3xl floating-shadow-dark animated-border ${visibleSections.has('try-it') ? 'animate-scale-reveal' : 'opacity-0'}`}>
-            <div className="text-center space-y-8">
-              <h2 className="text-3xl lg:text-4xl font-bold text-gradient-primary animate-text-reveal">
-                Try It Instantly
-              </h2>
+      {/* Find Your Perfect Colors Section */}
+      <section className="py-20 px-4 relative" data-reveal id="colors">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className={`${visibleSections.has('colors') ? 'animate-smooth-reveal-left' : 'opacity-0'}`}>
+              <h2 className="text-4xl font-bold mb-6 text-gray-900">Find Your Perfect Colors</h2>
+              <p className="text-lg text-gray-600 mb-8">
+                Select your skin tone to see which colors will make you shine.
+              </p>
               
-              <div className="grid md:grid-cols-2 gap-8 items-center">
-                <div className={`space-y-6 ${visibleSections.has('try-it') ? 'animate-reveal-left' : 'opacity-0'}`} style={{animationDelay: '0.3s'}}>
-                  <div className="glass-effect rounded-2xl p-6 border border-white/20 floating-shadow animate-reveal-up" style={{animationDelay: '0.5s'}}>
-                    <h3 className="text-xl font-semibold mb-4 text-gray-900">Step 1: Upload Your Photo</h3>
-                    <div className="bg-gradient-to-r from-gray-100 via-purple-100 to-gray-100 rounded-xl p-4 border-2 border-dashed border-purple-300 hover:border-black transition-colors cursor-pointer floating-shadow">
-                      <Upload className="w-8 h-8 mx-auto text-purple-600 mb-2 animate-float" />
-                      <p className="text-gray-800 text-center">Drag & drop or click to upload</p>
-                    </div>
-                  </div>
-                  
-                  <div className="glass-effect rounded-2xl p-6 border border-white/20 floating-shadow animate-reveal-up" style={{animationDelay: '0.7s'}}>
-                    <h3 className="text-xl font-semibold mb-4 text-gray-900">Step 2: Get Your Results</h3>
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2 animate-reveal-right" style={{animationDelay: '0.9s'}}>
-                        <Check className="w-4 h-4 text-green-600" />
-                        <span className="text-gray-700">Skin tone analysis</span>
-                      </div>
-                      <div className="flex items-center space-x-2 animate-reveal-right" style={{animationDelay: '1.1s'}}>
-                        <Check className="w-4 h-4 text-green-600" />
-                        <span className="text-gray-700">Color palette recommendations</span>
-                      </div>
-                      <div className="flex items-center space-x-2 animate-reveal-right" style={{animationDelay: '1.3s'}}>
-                        <Check className="w-4 h-4 text-green-600" />
-                        <span className="text-gray-700">Style suggestions</span>
-                      </div>
-                    </div>
+              <div className="space-y-8">
+                <div>
+                  <h3 className="text-xl font-semibold mb-4 text-gray-900">Skin Tone</h3>
+                  <div className="flex space-x-4">
+                    {skinTones.map((tone, index) => (
+                      <div
+                        key={tone.value}
+                        className={`color-circle ${selectedSkinTone === tone.value ? 'ring-4 ring-purple-500' : ''}`}
+                        style={{ backgroundColor: tone.color }}
+                        onClick={() => setSelectedSkinTone(tone.value)}
+                      />
+                    ))}
                   </div>
                 </div>
 
-                <div className={`relative ${visibleSections.has('try-it') ? 'animate-reveal-right' : 'opacity-0'}`} style={{animationDelay: '0.4s'}}>
+                <div>
+                  <h3 className="text-xl font-semibold mb-4 text-gray-900">Body Type</h3>
                   <div className="grid grid-cols-2 gap-4">
-                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face" alt="Demo face 1" className="rounded-2xl floating-shadow hover:scale-105 transition-transform duration-300 animate-scale-reveal" style={{animationDelay: '0.6s'}} />
-                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face" alt="Demo face 2" className="rounded-2xl floating-shadow hover:scale-105 transition-transform duration-300 animate-scale-reveal" style={{animationDelay: '0.8s'}} />
-                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&h=150&fit=crop&crop=face" alt="Demo face 3" className="rounded-2xl floating-shadow hover:scale-105 transition-transform duration-300 animate-scale-reveal" style={{animationDelay: '1.0s'}} />
-                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=150&h=150&fit=crop&crop=face" alt="Demo face 4" className="rounded-2xl floating-shadow hover:scale-105 transition-transform duration-300 animate-scale-reveal" style={{animationDelay: '1.2s'}} />
+                    {bodyTypes.map((type) => (
+                      <div
+                        key={type.value}
+                        className={`body-type-option p-4 border-2 border-gray-200 rounded-xl text-center ${selectedBodyType === type.value ? 'selected' : ''}`}
+                        onClick={() => setSelectedBodyType(type.value)}
+                      >
+                        <span className="font-medium text-gray-900">{type.name}</span>
+                      </div>
+                    ))}
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-purple-400/10 to-transparent rounded-2xl pointer-events-none"></div>
                 </div>
+
+                <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-full py-3 text-lg floating-shadow transition-all duration-500 hover:scale-105">
+                  <Upload className="w-5 h-5 mr-2" />
+                  Upload Your Photo for Analysis
+                </Button>
+              </div>
+            </div>
+
+            <div className={`${visibleSections.has('colors') ? 'animate-smooth-reveal-right' : 'opacity-0'}`} style={{animationDelay: '0.4s'}}>
+              <Card className="glass-effect border border-white/20 p-8 rounded-3xl floating-shadow">
+                <h3 className="text-xl font-semibold mb-6 text-gray-900">Try with sample faces</h3>
+                <div className="grid grid-cols-5 gap-4 mb-8">
+                  {[
+                    "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
+                    "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
+                    "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&h=100&fit=crop&crop=face",
+                    "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=100&h=100&fit=crop&crop=face",
+                    "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=100&h=100&fit=crop&crop=face"
+                  ].map((src, index) => (
+                    <img 
+                      key={index}
+                      src={src} 
+                      alt={`Sample face ${index + 1}`} 
+                      className="w-16 h-16 rounded-full object-cover cursor-pointer hover:scale-110 transition-transform duration-300 floating-shadow"
+                    />
+                  ))}
+                </div>
+                
+                <h4 className="text-lg font-medium mb-4 text-purple-600">Your Recommended Colors</h4>
+                <div className="flex space-x-3">
+                  {['#A7F3D0', '#60A5FA', '#A78BFA', '#F472B6', '#FBBF24', '#34D399'].map((color, index) => (
+                    <div
+                      key={index}
+                      className="w-12 h-12 rounded-full cursor-pointer hover:scale-110 transition-transform duration-300"
+                      style={{ backgroundColor: color }}
+                    />
+                  ))}
+                </div>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section className="py-20 px-4 relative" data-reveal id="pricing">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className={`text-4xl lg:text-5xl font-bold mb-6 text-gradient-primary ${visibleSections.has('pricing') ? 'animate-smooth-text-reveal' : 'opacity-0'}`}>
+              Simple, Transparent Pricing
+            </h2>
+            <p className={`text-xl text-gray-600 max-w-2xl mx-auto ${visibleSections.has('pricing') ? 'animate-smooth-reveal-up' : 'opacity-0'}`} style={{animationDelay: '0.3s'}}>
+              Choose the plan that fits your style journey.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {pricingPlans.map((plan, index) => (
+              <Card 
+                key={index}
+                className={`pricing-card ${plan.popular ? 'popular' : ''} glass-effect border border-white/20 p-8 rounded-3xl floating-shadow relative ${visibleSections.has('pricing') ? 'animate-smooth-scale-reveal' : 'opacity-0'}`}
+                style={{animationDelay: `${0.2 + index * 0.1}s`}}
+              >
+                {plan.badge && (
+                  <div className={`absolute -top-3 left-1/2 transform -translate-x-1/2 px-4 py-1 rounded-full text-sm font-medium ${plan.popular ? 'bg-purple-600 text-white' : 'bg-purple-100 text-purple-600'}`}>
+                    {plan.badge}
+                  </div>
+                )}
+                
+                <div className="text-center mb-6">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.name}</h3>
+                  <p className="text-gray-600 mb-4">{plan.description}</p>
+                  <div className="flex items-baseline justify-center">
+                    <span className="text-4xl font-bold text-gray-900">{plan.price}</span>
+                    <span className="text-gray-600 ml-1">{plan.period}</span>
+                  </div>
+                </div>
+
+                <ul className="space-y-3 mb-8">
+                  {plan.features.map((feature, featureIndex) => (
+                    <li key={featureIndex} className="flex items-center space-x-2">
+                      <Check className={`w-4 h-4 ${feature.includes('No') ? 'text-gray-400' : 'text-green-500'}`} />
+                      <span className={`${feature.includes('No') ? 'text-gray-400' : 'text-gray-700'}`}>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <Button 
+                  variant={plan.buttonVariant as any}
+                  className={`w-full rounded-full py-3 text-lg transition-all duration-500 hover:scale-105 ${plan.popular ? 'bg-purple-600 hover:bg-purple-700 text-white' : ''}`}
+                >
+                  {plan.buttonText}
+                </Button>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 px-4 relative" data-reveal id="faq">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className={`text-4xl lg:text-5xl font-bold mb-6 text-gradient-primary ${visibleSections.has('faq') ? 'animate-smooth-text-reveal' : 'opacity-0'}`}>
+            Frequently Asked Questions
+          </h2>
+          <p className={`text-xl text-gray-600 mb-12 ${visibleSections.has('faq') ? 'animate-smooth-reveal-up' : 'opacity-0'}`} style={{animationDelay: '0.3s'}}>
+            Everything you need to know about Company Name.
+          </p>
+          
+          <Card className={`glass-effect border border-white/20 p-8 rounded-3xl floating-shadow text-left ${visibleSections.has('faq') ? 'animate-smooth-scale-reveal' : 'opacity-0'}`} style={{animationDelay: '0.5s'}}>
+            <div className="space-y-6">
+              <div className="cursor-pointer hover:bg-purple-50 p-4 rounded-xl transition-colors">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">How does the color analysis work?</h3>
+                <p className="text-gray-600">Our AI analyzes your skin tone, eye color, and hair color to determine which colors complement you best.</p>
               </div>
             </div>
           </Card>
         </div>
       </section>
 
-      {/* Enhanced Testimonials & Newsletter */}
-      <section className="py-20 px-4 relative" data-reveal id="testimonials">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12">
-          {/* Enhanced Testimonials */}
-          <div className={`${visibleSections.has('testimonials') ? 'animate-reveal-left' : 'opacity-0'}`}>
-            <h2 className="text-3xl font-bold mb-8 text-gradient-primary animate-text-reveal">
-              What Our Users Say
-            </h2>
-            <div className="space-y-6">
-              {testimonials.map((testimonial, index) => (
-                <Card key={index} className={`glass-effect border border-white/20 p-6 rounded-2xl hover:glass-effect-dark transition-all duration-300 hover:scale-105 floating-shadow animated-border animate-reveal-up`} style={{animationDelay: `${0.2 + index * 0.1}s`}}>
-                  <div className="flex items-start space-x-4">
-                    <img 
-                      src={testimonial.avatar} 
-                      alt={testimonial.name}
-                      className="w-12 h-12 rounded-full object-cover floating-shadow animate-scale-reveal"
-                      style={{animationDelay: `${0.4 + index * 0.1}s`}}
-                    />
-                    <div className="flex-1">
-                      <p className="text-gray-700 mb-3 italic animate-text-reveal" style={{animationDelay: `${0.6 + index * 0.1}s`}}>"{testimonial.text}"</p>
-                      <div className="animate-reveal-up" style={{animationDelay: `${0.8 + index * 0.1}s`}}>
-                        <p className="font-semibold text-gray-900">{testimonial.name}</p>
-                        <p className="text-sm text-purple-600">{testimonial.role}</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex text-yellow-400 mt-4 animate-reveal-right" style={{animationDelay: `${1.0 + index * 0.1}s`}}>
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current animate-scale-reveal" style={{animationDelay: `${1.2 + index * 0.1 + i * 0.05}s`}} />
-                    ))}
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </div>
-
-          {/* Enhanced Newsletter */}
-          <div className={`${visibleSections.has('testimonials') ? 'animate-reveal-right' : 'opacity-0'}`} style={{animationDelay: '0.3s'}}>
-            <Card className="glass-effect-dark border border-white/10 p-8 rounded-3xl floating-shadow-dark hover:glass-effect transition-all duration-300 sticky top-24 animated-border">
-              <h2 className="text-3xl font-bold mb-6 text-gradient-primary animate-text-reveal">
-                Stay Updated
-              </h2>
-              <p className="text-gray-600 mb-6 animate-reveal-up" style={{animationDelay: '0.5s'}}>
-                Get the latest fashion insights and style tips delivered to your inbox.
-              </p>
-              <div className="space-y-4">
-                <Input 
-                  placeholder="Enter your email" 
-                  className="glass-effect border-white/30 rounded-full px-6 py-3 focus:ring-2 focus:ring-purple-500 focus:border-transparent animated-border animate-reveal-up"
-                  style={{animationDelay: '0.7s'}}
-                />
-                <Button className="w-full bg-gradient-to-r from-black via-purple-900 to-purple-600 hover:from-purple-900 hover:via-black hover:to-purple-700 text-white rounded-full py-3 floating-shadow-dark transition-all duration-300 hover:scale-105 animate-reveal-up" style={{animationDelay: '0.9s'}}>
-                  Subscribe Now
-                </Button>
-              </div>
-              <div className="absolute -inset-2 bg-gradient-to-r from-black/20 via-purple-400/30 to-black/20 rounded-3xl blur-xl -z-10 opacity-50"></div>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Enhanced Footer */}
+      {/* Footer */}
       <footer className="py-12 px-4 border-t border-white/20 glass-effect-dark" data-reveal id="footer">
-        <div className={`max-w-6xl mx-auto text-center ${visibleSections.has('footer') ? 'animate-reveal-up' : 'opacity-0'}`}>
-          <div className="text-2xl font-bold mb-4 text-gradient-primary animate-text-reveal">
+        <div className={`max-w-6xl mx-auto text-center ${visibleSections.has('footer') ? 'animate-smooth-reveal-up' : 'opacity-0'}`}>
+          <div className="text-2xl font-bold mb-4 text-gradient-primary animate-smooth-text-reveal">
             Company Name
           </div>
-          <p className="text-gray-400 mb-6 animate-reveal-up" style={{animationDelay: '0.2s'}}>Discover your unique fashion DNA</p>
+          <p className="text-gray-400 mb-6 animate-smooth-reveal-up" style={{animationDelay: '0.2s'}}>Discover your unique fashion DNA</p>
           <div className="flex justify-center space-x-6 text-gray-500">
             {['Privacy', 'Terms', 'Contact', 'About'].map((link, index) => (
               <a 
                 key={link} 
                 href="#" 
-                className="hover:text-purple-400 transition-colors animate-reveal-up animated-border" 
+                className="hover:text-purple-400 transition-colors animate-smooth-reveal-up" 
                 style={{animationDelay: `${0.4 + index * 0.1}s`}}
               >
                 {link}
